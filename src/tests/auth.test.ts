@@ -1,8 +1,8 @@
 import { describe, expect, test } from "vitest";
 
 const person = {
-  isActive: false,
-  age: 32,
+  isActive: true,
+  age: 13,
 };
 
 describe("person", () => {
@@ -15,6 +15,6 @@ describe("person", () => {
   });
 
   test("is minor", () => {
-    expect(person.age).toBeLessThanOrEqual(50);
+    expect(person.age).toBeLessThanOrEqual(18);
   });
 });
