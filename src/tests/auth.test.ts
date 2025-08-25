@@ -1,4 +1,7 @@
 import { describe, expect, test } from "vitest";
+import { getAPIKey } from "src/api/auth";
+import { IncomingHttpHeaders } from "http";
+
 
 const person = {
   isActive: true,
@@ -17,4 +20,23 @@ describe("person", () => {
   test("is minor", () => {
     expect(person.age).toBeLessThanOrEqual(18);
   });
+
 });
+
+
+describe("getAPIKey", () => {
+	const header : IncomingHttpHeaders = { authorization: "ApiKey abc123" };
+	test("header is defined", () => { 
+		expect(header).toBeDefined();
+	});
+
+	test("getAPIKey returns token", () => {
+		expect(getAPIKey(header)).toBe("abc123");
+	});
+
+	test("getAPIKey returns null", () => {
+		expect(getAPIKey({})).toBe(null);
+	});
+  
+});
+
