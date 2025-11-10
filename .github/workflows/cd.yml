@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
 
-      - name: Install dependencies ( ci: clean install )
+      - name: 'Install dependencies ( ci: clean install )'
         run: npm ci
 
       - name: Building application
