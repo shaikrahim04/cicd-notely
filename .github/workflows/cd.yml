@@ -1,4 +1,4 @@
-name: ci
+name: cd
 
 on:
   push:
@@ -16,8 +16,22 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
 
-      - name: Install dependencies
+      - name: Install dependencies ( ci: clean install )
         run: npm ci
 
       - name: Building application
         run: npm run build
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v3'
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+
+      - name: 'Build Docker Image and push it to Google Artifact Registry'
+        run: 'gcloud builds submit --tag us-central1-docker.pkg.dev/notely-477713/notely-ar-repo'
